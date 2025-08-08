@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+
+  <style>
+    body {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgb(1, 1, 1));
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Navigation bar */
+    #navigation {
+      height: 90px;
+      width: 100%;
+      background-color: rgb(23, 28, 34);
+      position: relative;
+    }
+
+    img {
+      width: 90px;
+      margin-top: 15px;
+      margin-left: 100px;
+    }
+
+    #img2 {
+      margin-left: -7px;
+      margin-bottom: 12px;
+    }
+
+    /* Text links */
+    .text-nav {
+      position: absolute;
+      font-weight: 700;
+      font-size: 20px;
+      color: aliceblue;
+      margin-left: 1000px;
+      margin-top: -40px;
+      word-spacing: 40px;
+    }
+
+    .text-nav a {
+      text-decoration: none;
+      color: aliceblue;
+      margin: 0 10px;
+    }
+
+    .ul {
+      border-bottom: 2px solid transparent;
+      padding-bottom: 23px;
+    }
+
+    .ul:hover {
+      border-bottom: 4px solid aqua;
+    }
+
+    a:hover {
+      color: aqua;
+    }
+
+    /* Login button box */
+    #Loginbox {
+      padding: 30px 60px 10px 60px;
+      background: rgb(56, 156, 214);
+      border: none;
+      border-radius: 8px;
+      height: 7px;
+      width: 20px;
+      margin-left: 360px;
+      margin-top: -34px;
+    }
+
+    #logintext {
+      position: relative;
+      font-size: 15px;
+      text-align: center;
+      left: -38px;
+      top: -20px;
+    }
+
+    #Loginbox:hover {
+      box-shadow: 0px 0px 20px rgb(56, 156, 214);
+    }
+
+    #logintext:hover {
+      color: white;
+    }
+
+    /* Hamburger menu button */
+    button {
+      position: absolute;
+      font-size: 30px;
+      color: aliceblue;
+      margin-left: 850px;
+      margin-top: -45px;
+      background-color: rgb(23, 28, 34);
+      border: none;
+    }
+
+    /* Popup menu */
+    #more {
+      position: absolute;
+      background-color: rgb(23, 28, 34);
+      padding: 150px;
+      z-index: 1000;
+      height: 500px;
+      width: 150px;
+      border-radius: 0 0 0 20px;
+      left: 1460px;
+      top: 91px;
+      display: none;
+    }
+
+    /* Section 1 below nav */
+    #sect1 {
+      margin: 0;
+      padding: 0;
+      background-color: #0f0f0f;
+    }
+
+    #img3 {
+      width: 100%;
+      height: auto;
+      margin: 0;
+      display: block;
+    }
+
+    /* Headings on image */
+    h1 {
+      position: absolute;
+      margin: 0;
+      font-family: monospace;
+    }
+
+    #h1 {
+      color: aliceblue;
+      top: 200px;
+    }
+
+    #h2 {
+      color: aqua;
+      top: 250px;
+    }
+
+    #h3 {
+      color: aliceblue;
+      top: 300px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="navigation">
+    <div id="more"> <!-- more options --></div>
+
+    <nav>
+      <img src="img/logo.png">
+      <img src="img/textlo.png" id="img2">
+
+      <div class="text-nav">
+        <a href="#" class="ul">Home</a>
+        <a href="#" class="ul">Find-Vehicle</a>
+        <a href="#" class="ul">About</a>
+
+        <div id="Loginbox">
+          <a href="login.php" id="logintext">Login/Signup</a>
+        </div>
+
+        <button id="option">☰</button>
+      </div>
+    </nav>
+  </div>
+
+  <div id="sect1">
+    <h1 id="h1">DRIVE</h1><br>
+    <h1 id="h2">THE EASY</h1><br>
+    <h1 id="h3">WAY</h1>
+    <img src="img/imgcar.jpg" id="img3">
+  </div>
+
+  <script>
+    const opt = document.getElementById("option");
+    const more = document.getElementById("more");
+
+    // Show "more" box on hover
+    opt.addEventListener('mouseover', function () {
+      more.style.display = 'block';
+    });
+
+    // Hide "more" box when mouse leaves the box
+    more.addEventListener('mouseleave', function () {
+      more.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
