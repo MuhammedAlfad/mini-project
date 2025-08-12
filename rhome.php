@@ -324,7 +324,7 @@ select{ border:none;
 .my-vehicles{
 
     display:none;
-        position: relative;
+        position: fixed;
    
    align-items:flex-start;
   justify-content:flex-start;
@@ -343,6 +343,41 @@ select{ border:none;
 
 }
 
+.request{
+
+     display:none;
+        position: fixed;
+   
+   align-items:flex-start;
+  justify-content:flex-start;
+  padding: 50px;
+  top:70px;
+ 
+    width: 90%;
+    height: 80%;
+    flex-direction: row;
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(20px);
+         
+    border:3px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 50px;
+    box-shadow: 0px 0px 50px 0.5px rgba(0, 0, 0, 0.2); 
+    
+}
+.req{
+  color:white ;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position: relative;
+  display: flex;
+  flex-wrap:wrap;
+  padding: 40px;
+  flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 2px 2px 4px grey;
+
+
+}
 
 </style>
 
@@ -408,6 +443,8 @@ select{ border:none;
     </div> 
 
 
+<!-- my  vehicles -->
+    
    <div class="my-vehicles">
       <form action="" method="POST" enctype="multipart/form-data">
 
@@ -418,7 +455,7 @@ select{ border:none;
 
  <div id="formgroup1">
 
- <i id="back3" class="fa fa-arrow-left" aria-hidden="true"  style="position:absolute; top: 30px; left:20px; font-size:25px;"></i>
+ <i class="back3 fa fa-arrow-left" aria-hidden="true"  style="position:absolute; top: 30px; left:20px; font-size:25px;"></i>
 
      
    <?php 
@@ -436,6 +473,17 @@ if (!$veh_result) {
         echo "<strong>Price:</strong> ₹" . htmlspecialchars($veh['veh_price']) . "<br>";
         echo "<img src='" . htmlspecialchars($veh['veh_img']) . "' width='150' style='border-radius:10px'><br>";
         echo "<hr>";
+         // edit Button
+        echo "<a href='booking_vehicle.php?id=" . $veh['veh_id'] . "&status=edit' 
+                style='padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:5px; margin-right:10px;'>
+                Edit</a>";
+
+
+
+        // Remove Button
+        echo "<a href='booking_vehicle.php?id=" . $veh['veh_id'] . "&status=remove' 
+                style='padding:8px 12px; background:red; color:white; text-decoration:none; border-radius:5px;'>
+                Remove</a>";
         echo "</div>";
     }
 }
@@ -444,6 +492,63 @@ if (!$veh_result) {
    ?>
 
 </div>
+
+</div>
+
+
+<!-- request view -->
+
+<div class="request">
+
+
+
+<i class="back3 fa fa-arrow-left" aria-hidden="true"  style=" color:white; z-index:1000; position:absolute; top: 30px; left:20px; font-size:25px;"></i>
+
+
+<?php 
+$req_list = "
+SELECT vehicle_tbl.veh_name, vehicle_tbl.veh_model, vehicle_tbl.veh_img,
+       booking_tbl.boo_id, booking_tbl.boo_status, 
+       customer_tbl.cus_name
+FROM vehicle_tbl
+JOIN booking_tbl 
+    ON vehicle_tbl.veh_id = booking_tbl.veh_id
+JOIN customer_tbl 
+    ON booking_tbl.cus_id = customer_tbl.cus_id
+WHERE vehicle_tbl.ren_id = '{$_SESSION['id']}'
+  AND booking_tbl.boo_status = 'pending'
+";
+
+$li = mysqli_query($con, $req_list);
+
+if (!$li) {
+    echo "Query failed: " . mysqli_error($con);
+} else {
+    while ($list = mysqli_fetch_assoc($li)) {
+        echo "<div class='req' style='color:white; margin-bottom:20px;'>";
+
+        echo "<strong>Vehicle Name:</strong> " . htmlspecialchars($list['veh_name']) . "<br>";
+        echo "<strong>Model:</strong> " . htmlspecialchars($list['veh_model']) . "<br>";
+        echo "<strong>Customer Name:</strong> " . htmlspecialchars($list['cus_name']) . "<br>";
+        
+        echo "<img src='" . htmlspecialchars($list['veh_img']) . "' width='150' style='border-radius:10px'><br><br>";
+
+        // Accept Button
+        echo "<a href='booking_vehicle.php?id=" . $list['boo_id'] . "&status=accepted' 
+                style='padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:5px; margin-right:10px;'>
+                Accept</a>";
+
+        // Reject Button
+        echo "<a href='booking_vehicle.php?id=" . $list['boo_id'] . "&status=rejected' 
+                style='padding:8px 12px; background:red; color:white; text-decoration:none; border-radius:5px;'>
+                Reject</a>";
+
+        echo "</div><hr>";
+    }
+}
+?>
+
+
 
 </div>
 
@@ -466,8 +571,11 @@ const vehicleform = document.querySelector('.upload-vehicle-form');
 const submit = document.getElementById('submit');
 const myvehicle = document.getElementById('mv');
 const myvehiclelist = document.querySelector('.my-vehicles');
-const back3 = document.getElementById('back3');
+const back3 = document.querySelectorAll('.back3');
 const back1 = document.getElementById('back1');
+const viewrequest = document.querySelector('.request');
+const reqbtn = document.getElementById('req');
+
 
 
 upload.addEventListener('click',function()
@@ -493,13 +601,6 @@ mv.addEventListener('click',function()
 
 });
 
-back3.addEventListener('click',function()
-{
-   options.style.display='flex';
-  myvehiclelist.style.display='none';
-  
-
-});
 
 back1.addEventListener('click',function()
 {
@@ -507,6 +608,26 @@ back1.addEventListener('click',function()
   vehicleform.style.display='none';
   
 
+});
+
+
+reqbtn.addEventListener('click',function()
+{
+   viewrequest.style.display='flex';
+   options.style.display='none';
+  
+
+});
+
+
+// Loop through the list of buttons you selected
+back3.forEach(function(button) {
+  // Add the click listener to EACH individual button
+  button.addEventListener('click', function() {
+    options.style.display = 'flex';
+    myvehiclelist.style.display = 'none';
+    viewrequest.style.display = 'none';
+  });
 });
 
  </script>

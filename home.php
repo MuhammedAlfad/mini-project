@@ -438,8 +438,8 @@ if (!$veh_result) {
        
         echo "<strong>Price:</strong> ₹" . htmlspecialchars($veh['veh_price']) . "</div><br>";
         echo "<img src='" . htmlspecialchars($veh['veh_img']) . "'>";
-        echo "<button class='book1'> BOOK </button>" ;
-        echo "<button class='book2'> VIEW </button>" ;
+     echo "<button class='book1' onclick='placeholderFunction({$veh['veh_id']}, {$veh['ren_id']})'>BOOK</button>";
+          echo "<button class='book2'> VIEW </button>" ;
        
        // $sql4= "insert into booking_tbl where    "; 
          echo "</div>";
@@ -528,6 +528,21 @@ browse.style.display='flex';
 
 });
 */
+
+// to place booking function 
+function placeholderFunction(vehicleId, renterId) {
+  if (confirm("Do you want to book this vehicle?")) {  fetch("book_vehicle.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "veh_id=" + vehicleId + "&ren_id=" + renterId
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert(data); // Show success/failure message
+    });
+}
+}
+
 
 
 
