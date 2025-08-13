@@ -293,6 +293,7 @@ hr{
 
 #listvehicle{
   display:flex;
+  flex-wrap:wrap ;
   width: 100%;
   height:100%;
   background-color:rgba(0, 0, 0, 0.4);
@@ -368,6 +369,39 @@ flex-wrap:wrap;
 }
 
 
+#overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 9998;
+}
+
+
+#booking {
+  position: fixed; /* so it stays in the center even when scrolling */
+  top: 50%;        /* vertical center */
+  left: 50%;       /* horizontal center */
+  transform: translate(-50%, -50%); /* move it back by half its own size */
+
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;   /* hidden until BOOK is clicked */
+  flex-wrap: wrap;
+  padding: 40px;
+  flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 2px 2px 4px grey;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9); /* optional: dark background */
+  border-radius: 10px; /* optional: smooth corners */
+}
+
+
+
+
 
    </style>
 
@@ -426,7 +460,16 @@ flex-wrap:wrap;
 <div id="listvehicle">
 
 <?php
-   $listveh = "SELECT * FROM vehicle_tbl ";
+
+$listveh = "
+SELECT * FROM vehicle_tbl
+WHERE veh_id NOT IN (
+    SELECT veh_id FROM booking_tbl WHERE boo_status IN ('accepted', 'booked')
+)
+";
+
+
+
 $veh_result = mysqli_query($con, $listveh);
 
 if (!$veh_result) {
@@ -438,7 +481,10 @@ if (!$veh_result) {
        
         echo "<strong>Price:</strong> ₹" . htmlspecialchars($veh['veh_price']) . "</div><br>";
         echo "<img src='" . htmlspecialchars($veh['veh_img']) . "'>";
-     echo "<button class='book1' onclick='placeholderFunction({$veh['veh_id']}, {$veh['ren_id']})'>BOOK</button>";
+       
+     echo "<button class='book1' data-veh-id='" . htmlspecialchars($veh['veh_id']) . "' data-ren-id='" . htmlspecialchars($veh['ren_id']) . "'>BOOK</button>";
+
+
           echo "<button class='book2'> VIEW </button>" ;
        
        // $sql4= "insert into booking_tbl where    "; 
@@ -446,6 +492,9 @@ if (!$veh_result) {
     }
 }
 ?>
+
+
+
 
 
 
@@ -460,6 +509,20 @@ if (!$veh_result) {
  </div>
  
 
+ <!-- booking form -->
+<div id="overlay">
+  <div id="booking">
+    <form action="book_vehicle.php" method="post" enctype="multipart/form-data">
+      
+      <input type="hidden" name="veh_id">
+      <input type="hidden" name="ren_id">
+      <input type="file" name="doc">
+      <input type="submit"  name="booking-submit" value="Book Now">
+    </form>
+  </div>
+</div>
+
+
 
    
 <script>
@@ -470,7 +533,10 @@ const fv = document.getElementById("findvehicle");
 const  navlink = document.querySelectorAll(".ul");
 const home = document.getElementById("home");
 const browse = document.getElementById("browse");
+const booking = document.getElementById("booking");
 //const view =document.querySelector(".book2");
+const bookbtn =document.querySelectorAll(".book1");
+const overlay = document.getElementById("overlay");
 
 /* to open and close the more option when mouse moves in and out */
 opt.addEventListener('mouseenter',function()
@@ -530,6 +596,7 @@ browse.style.display='flex';
 */
 
 // to place booking function 
+/*
 function placeholderFunction(vehicleId, renterId) {
   if (confirm("Do you want to book this vehicle?")) {  fetch("book_vehicle.php", {
         method: "POST",
@@ -541,15 +608,40 @@ function placeholderFunction(vehicleId, renterId) {
         alert(data); // Show success/failure message
     });
 }
-}
+}  booking.addEventListener('click',function(){
+
+overlay.style.display='flex';
+
+}); */
+
+//booking form display when clicking booking btn
 
 
+bookbtn.forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Get both IDs from the button's data attributes
+        const vehId = this.getAttribute('data-veh-id');
+        const renId = this.getAttribute('data-ren-id');
+
+        // Populate both hidden input fields in the form
+        document.querySelector("#booking input[name='veh_id']").value = vehId;
+        document.querySelector("#booking input[name='ren_id']").value = renId;
+
+        overlay.style.display = 'flex';
+        booking.style.display = 'flex';
+    });
+});
+
+overlay.addEventListener("click", (e) => {
+  if (e.target === overlay) {
+    overlay.style.display = "none";
+  }
+});
 
 
 
 
 </script>
-
 
 </body>
 </html>

@@ -363,6 +363,7 @@ select{ border:none;
 
     border-radius: 50px;
     box-shadow: 0px 0px 50px 0.5px rgba(0, 0, 0, 0.2); 
+    flex-wrap: wrap;
     
 }
 .req{

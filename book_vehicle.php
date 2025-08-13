@@ -1,26 +1,44 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "transport");
+$con = mysqli_connect("localhost", "root", "", "transport");
 
 if (!isset($_SESSION['id'])) {
     die("You must log in to book");
 }
 
-if (isset($_POST['veh_id'])) {
+if (isset($_POST['booking-submit'])) {
     $veh_id = intval($_POST['veh_id']);
     $user_id = $_SESSION['id'];
-    $renter_id= intval($_POST['ren_id']);;
+    $renter_id = intval($_POST['ren_id']);
 
-    $sql = "INSERT INTO booking_tbl (veh_id, cus_id, boo_status,ren_id) VALUES ($veh_id, $user_id, 'pending',$renter_id)";
-    if (mysqli_query($conn, $sql)) {
-        echo "✅ Booking request sent!";
+    // Handle file upload
+    $doc = "";
+    if (isset($_FILES['doc']) && $_FILES['doc']['error'] === UPLOAD_ERR_OK) {
+        $filename = basename($_FILES['doc']['name']);
+        $targetPath = "document/" . $filename;
+        
+        if (move_uploaded_file($_FILES['doc']['tmp_name'], $targetPath)) {
+            $doc = mysqli_real_escape_string($con, $targetPath);
+        } else {
+            die("Error uploading file");
+        }
+    }
+
+    // Insert booking
+    
+    $sql = "INSERT INTO booking_tbl (veh_id, cus_id, boo_status, ren_id, cus_doc) 
+            VALUES ($veh_id, $user_id, 'pending', $renter_id, '$doc')";
+
+    if (mysqli_query($con, $sql)) {
+       header("Location: home.php?view=listvehicle");
+        exit();
     } else {
-        echo "❌ Error: " . mysqli_error($conn);
+        echo "❌ Error: " . mysqli_error($con);
     }
 }
 
 
-
+/*
 //request accepting rejecting
 // Handle Accept
 if (isset($_GET['accept_id'])) {
@@ -46,6 +64,6 @@ if (isset($_GET['remove_id'])) {
     }
 }
 
-
+*/
 
 ?>
