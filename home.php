@@ -516,6 +516,8 @@ if (!$veh_result) {
       
       <input type="hidden" name="veh_id">
       <input type="hidden" name="ren_id">
+      <label for="date">Choose Date:</label>
+    <input type="date" id="date" name="date">
       <input type="file" name="doc">
       <input type="submit"  name="booking-submit" value="Book Now">
     </form>

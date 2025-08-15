@@ -350,11 +350,11 @@ select{ border:none;
    
    align-items:flex-start;
   justify-content:flex-start;
-  padding: 50px;
+  padding: 60px;
   top:70px;
  
     width: 90%;
-    height: 80%;
+    height: 70%;
     flex-direction: row;
       background-color: rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(20px);
@@ -364,9 +364,10 @@ select{ border:none;
     border-radius: 50px;
     box-shadow: 0px 0px 50px 0.5px rgba(0, 0, 0, 0.2); 
     flex-wrap: wrap;
-    
+    gap:40px; 
 }
 .req{
+  
   color:white ;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   position: relative;
@@ -376,9 +377,27 @@ select{ border:none;
   flex-direction: column;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 2px 2px 4px grey;
+  width: 170px;
+  height: auto;
+ 
+
+}
+
+.request button{
+
+border-radius:2px;
+border: none;
+position: relative;
+width: 50px;
+height: auto;
+top: -17px;
+left: 130px;
+background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(20px);
 
 
 }
+
 
 </style>
 
@@ -478,7 +497,7 @@ if (!$veh_result) {
         echo "<a href='booking_vehicle.php?id=" . $veh['veh_id'] . "&status=edit' 
                 style='padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:5px; margin-right:10px;'>
                 Edit</a>";
-
+            
 
 
         // Remove Button
@@ -488,6 +507,7 @@ if (!$veh_result) {
         echo "</div>";
     }
 }
+
 
    
    ?>
@@ -505,11 +525,10 @@ if (!$veh_result) {
 
 <i class="back3 fa fa-arrow-left" aria-hidden="true"  style=" color:white; z-index:1000; position:absolute; top: 30px; left:20px; font-size:25px;"></i>
 
-
 <?php 
 $req_list = "
 SELECT vehicle_tbl.veh_name, vehicle_tbl.veh_model, vehicle_tbl.veh_img,
-       booking_tbl.boo_id, booking_tbl.boo_status, 
+       booking_tbl.boo_id, booking_tbl.boo_status, booking_tbl.cus_id, booking_tbl.cus_doc,
        customer_tbl.cus_name
 FROM vehicle_tbl
 JOIN booking_tbl 
@@ -526,6 +545,8 @@ if (!$li) {
     echo "Query failed: " . mysqli_error($con);
 } else {
     while ($list = mysqli_fetch_assoc($li)) {
+        $viewId = "viewdoc" . $list['boo_id']; // unique ID for each request
+
         echo "<div class='req' style='color:white; margin-bottom:20px;'>";
 
         echo "<strong>Vehicle Name:</strong> " . htmlspecialchars($list['veh_name']) . "<br>";
@@ -533,6 +554,15 @@ if (!$li) {
         echo "<strong>Customer Name:</strong> " . htmlspecialchars($list['cus_name']) . "<br>";
         
         echo "<img src='" . htmlspecialchars($list['veh_img']) . "' width='150' style='border-radius:10px'><br><br>";
+
+        // View Document Button
+        echo "<label>Verify Document</label> 
+              <button type='button' onclick=\"toggleDoc('$viewId')\">VIEW</button>";
+
+        // Hidden Image Div
+        echo "<div id='$viewId' style='display:none; margin-top:10px;'>
+                <img src='" . htmlspecialchars($list['cus_doc']) . "' width='200' style='border-radius:10px'>
+              </div>";
 
         // Accept Button
         echo "<a href='booking_vehicle.php?id=" . $list['boo_id'] . "&status=accepted' 
@@ -544,7 +574,7 @@ if (!$li) {
                 style='padding:8px 12px; background:red; color:white; text-decoration:none; border-radius:5px;'>
                 Reject</a>";
 
-        echo "</div><hr>";
+        echo "</div>";
     }
 }
 ?>
@@ -630,6 +660,23 @@ back3.forEach(function(button) {
     viewrequest.style.display = 'none';
   });
 });
+
+
+//to display  the doc of clicked elemet
+function toggleDoc(id) {
+    const target = document.getElementById(id);
+    const isVisible = target && target.style.display === "block";
+
+    // Hide all open documents first
+    document.querySelectorAll("[id^='viewdoc']").forEach(el => el.style.display = "none");
+
+    // If it wasn't visible before, show it — otherwise, leave it hidden
+    if (!isVisible && target) {
+        target.style.display = "block";
+    }
+}
+
+
 
  </script>
 

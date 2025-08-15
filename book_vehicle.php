@@ -10,6 +10,7 @@ if (isset($_POST['booking-submit'])) {
     $veh_id = intval($_POST['veh_id']);
     $user_id = $_SESSION['id'];
     $renter_id = intval($_POST['ren_id']);
+    $date= $_POST['date'];
 
     // Handle file upload
     $doc = "";
@@ -26,8 +27,8 @@ if (isset($_POST['booking-submit'])) {
 
     // Insert booking
     
-    $sql = "INSERT INTO booking_tbl (veh_id, cus_id, boo_status, ren_id, cus_doc) 
-            VALUES ($veh_id, $user_id, 'pending', $renter_id, '$doc')";
+    $sql = "INSERT INTO booking_tbl (veh_id, cus_id, boo_status, ren_id, cus_doc,date) 
+            VALUES ($veh_id, $user_id, 'pending', $renter_id, '$doc','$date')";
 
     if (mysqli_query($con, $sql)) {
        header("Location: home.php?view=listvehicle");
