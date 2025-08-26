@@ -374,11 +374,13 @@ select{ border:none;
   display: flex;
   flex-wrap:wrap;
   padding: 40px;
-  flex-direction: column;
+  flex-direction: rows;
+  flex-shrink: auto;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 2px 2px 4px grey;
-  width: 170px;
+  width: 10%;
   height: auto;
+  gap:10px;
  
 
 }
@@ -388,16 +390,19 @@ select{ border:none;
 border-radius:2px;
 border: none;
 position: relative;
-width: 50px;
-height: auto;
-top: -17px;
-left: 130px;
+
 background-color: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(20px);
 
 
 }
 
+.request input[type="submit"]{
+  
+   width:70px;
+   height: 30px;
+   gap:30px;
+}
 
 </style>
 
@@ -529,7 +534,7 @@ if (!$veh_result) {
 $req_list = "
 SELECT vehicle_tbl.veh_name, vehicle_tbl.veh_model, vehicle_tbl.veh_img,
        booking_tbl.boo_id, booking_tbl.boo_status, booking_tbl.cus_id, booking_tbl.cus_doc,
-       customer_tbl.cus_name
+       customer_tbl.cus_name,booking_tbl.date,booking_tbl.boo_id
 FROM vehicle_tbl
 JOIN booking_tbl 
     ON vehicle_tbl.veh_id = booking_tbl.veh_id
@@ -552,27 +557,32 @@ if (!$li) {
         echo "<strong>Vehicle Name:</strong> " . htmlspecialchars($list['veh_name']) . "<br>";
         echo "<strong>Model:</strong> " . htmlspecialchars($list['veh_model']) . "<br>";
         echo "<strong>Customer Name:</strong> " . htmlspecialchars($list['cus_name']) . "<br>";
+        echo "<strong>Date of Booking:</strong> " . htmlspecialchars($list['date']) . "<br>";
         
         echo "<img src='" . htmlspecialchars($list['veh_img']) . "' width='150' style='border-radius:10px'><br><br>";
 
         // View Document Button
-        echo "<label>Verify Document</label> 
-              <button type='button' onclick=\"toggleDoc('$viewId')\">VIEW</button>";
+        echo "<label>Verify Document
+              <button type='button' onclick=\"toggleDoc('$viewId')\">VIEW</button> </label> <br>";
 
         // Hidden Image Div
         echo "<div id='$viewId' style='display:none; margin-top:10px;'>
                 <img src='" . htmlspecialchars($list['cus_doc']) . "' width='200' style='border-radius:10px'>
               </div>";
 
-        // Accept Button
-        echo "<a href='booking_vehicle.php?id=" . $list['boo_id'] . "&status=accepted' 
-                style='padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:5px; margin-right:10px;'>
-                Accept</a>";
 
-        // Reject Button
-        echo "<a href='booking_vehicle.php?id=" . $list['boo_id'] . "&status=rejected' 
-                style='padding:8px 12px; background:red; color:white; text-decoration:none; border-radius:5px;'>
-                Reject</a>";
+              // accepting rejectiong the booking 
+       echo "
+      <form onsubmit=\"handleAction(event, {$list['boo_id']}, 'accept')\">
+      <button type='submit'>Accept</button>
+      </form>
+      <form onsubmit=\"handleAction(event, {$list['boo_id']}, 'reject')\">
+      <button type='submit'>Reject</button>
+      </form>
+      ";
+
+
+   
 
         echo "</div>";
     }
@@ -676,8 +686,21 @@ function toggleDoc(id) {
     }
 }
 
-
-
+// accepting rejectiong the booking and sending data to php 
+function handleAction(e, boo_id, action) {
+    e.preventDefault(); // stop form reload
+    
+    fetch("book_vehicle.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: "boo_id=" + boo_id + "&" + action + "=1"
+    })
+    .then(res => res.text())
+    .then(data => {
+        // Remove the request div from UI
+        e.target.closest(".req").remove();
+    });
+}
  </script>
 
 </body>

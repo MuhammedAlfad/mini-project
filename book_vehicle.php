@@ -39,6 +39,29 @@ if (isset($_POST['booking-submit'])) {
 }
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    $boo_id = $_POST['boo_id'];
+
+    if (isset($_POST['accept'])) {
+        $status = 'booked';
+    } elseif (isset($_POST['reject'])) {
+        $status = 'available';
+    } else  {
+        $status = 'pending';
+    }
+
+    $sql = "UPDATE booking_tbl 
+            SET boo_status = '$status' 
+            WHERE 
+             boo_id = '$boo_id'";
+
+    mysqli_query($con, $sql);
+       
+
+}
+
+
 /*
 //request accepting rejecting
 // Handle Accept
@@ -66,5 +89,7 @@ if (isset($_GET['remove_id'])) {
 }
 
 */
+
+
 
 ?>

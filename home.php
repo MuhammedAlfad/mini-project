@@ -49,7 +49,9 @@ session_start();
     height: 90px;;
     width: 100%;
    z-index: 50000;
-    background-color: rgb(23, 28, 34);
+    background-color: rgba(0, 0, 0, 0.81);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid aliceblue;
 }
 
 .text-nav {
@@ -200,7 +202,7 @@ h1:hover{
   text-shadow:0px 0px 40px rgb(173, 255, 255) ;
 
 }
-p{
+#welcome-p{
     position: absolute;
     font-weight: bold;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -213,7 +215,7 @@ p{
     left: 700px;
     text-shadow:0px 0px 60px rgb(107, 107, 107) ;
 }
-p:hover{
+#welcome-p:hover{
 text-shadow:0px 0px 60px rgb(173, 255, 255) ;
 
 }
@@ -265,33 +267,37 @@ hr{
 
 #browse {
   display: none;
+  position: relative;
+  top: -50px;
   padding-top: 130px; /* Push content down inside, not the layout */
   text-align: center;
-   background: linear-gradient(to bottom,rgb(23, 28, 34),rgb(34, 34, 34));
-   height: 100vh;
+   background: linear-gradient(to bottom,rgba(2, 3, 3, 1),rgb(34, 34, 34));
+   height: 100%;
 }
 
 #browse input[type="search"] {
   position: fixed;
-  top: 150px; /* controls vertical position */
+  top: 130px; /* controls vertical position */
   left: 50%; /* center horizontally */
   transform: translateX(-50%); /* shift back by half width */
 
-  width: 400px;
-  height: 40px;
-  padding: 10px;
+  width: 700px;
+  height: 50px;
+
   font-size: 18px;
-  border: 2px solid aqua;
-  box-shadow:2px 2px 10px aqua ;
-  border-radius: 40px;
-  background-color: rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(4, 226, 255, 0.4);
+  box-shadow:2px 2px 10px rgba(0, 0, 0, 0.4) ;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
   color: white;
   backdrop-filter: blur(10px);
   z-index:100;
+  color: black;
 
 }
 
 #listvehicle{
+  
   display:flex;
   flex-wrap:wrap ;
   width: 100%;
@@ -302,6 +308,8 @@ hr{
 
 .vehicleelement {
 border:2px solid white;
+position: relative;
+top: 80px;
 width:270px;
 height:150px;
 display:flex;
@@ -310,6 +318,7 @@ flex-wrap:wrap;
 box-shadow:2px 2px 10px aqua;
 border-radius:20px;
 margin: 80px;
+background-color:rgba(0, 0, 0, 0.9);
 
 
 }
@@ -360,22 +369,14 @@ flex-wrap:wrap;
 
 } 
 
-.fullview{
-   display: flex;
-   width: 100%;
-   height: 100%;
-   background-color: aqua;
-
-}
-
-
-#overlay {
+.overlay {
   display: none; /* Hidden by default */
   position: fixed;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(30px);
   z-index: 9998;
 }
 
@@ -399,9 +400,230 @@ flex-wrap:wrap;
   border-radius: 10px; /* optional: smooth corners */
 }
 
+.fullview{
 
 
+     display:none;
+         align-items: flex-start;
+  justify-content:center;
+        position: fixed;
+   
+ 
+  padding: 60px;
+  top:110px;
+  left: 30px;
 
+ 
+    width: 90%;
+    height: 70%;
+    flex-direction: row;
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(20px);
+         
+    border:3px solid rgba(173, 255, 255, 0.9);
+    box-shadow: 5px 5px 80px rgb(56, 156, 214);
+    border-radius: 50px;
+    box-shadow: 0px 0px 50px 0.5px rgba(0, 0, 0, 0.2); 
+    flex-wrap: wrap;
+   
+    z-index: 10000;
+     overflow-y: auto;
+  overflow-x: hidden;
+  gap: 20px;
+}
+
+ .fullview::-webkit-scrollbar { display: none; }
+
+.statuselement {
+  position: relative;
+  top: -40px;
+  flex: 0 0 auto;
+    width: 100%;
+    height: 200px;
+    border: 2px solid rgba(173, 255, 255,0.6);
+    border-radius: 16px;
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    color: #ffffffff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    font-size: 40px;
+}
+
+.individual {
+  position: relative;
+  left: -450px;
+ display: flex;
+  align-items: center;
+ gap: 20px;
+ font-size:20px;
+ padding: 0px;
+ font-weight: bold;
+
+}
+.individual strong{
+  position: relative;
+  left: 20px;
+}
+
+.individual .cancel{
+  position: absolute;
+right: -1250px;
+top: -140px;
+  border: none;
+  background-color:   rgba(146, 0, 0, 1);
+  width: 170px;
+  height: 40px;
+  border-radius: 10px;
+  
+}
+.individual .pay{
+  position: relative;
+  right: -550px;
+   top: -180px;
+  border: none;
+  background-color: rgba(83, 214, 78, 1);
+  width: 170px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.overlay2 {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(60px);
+  z-index: 10000;
+}
+
+.payment{
+    position: fixed;
+    top: 150px;
+    left: 500px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    height: 760px;
+    flex-direction: column;
+      background-color: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(30px);
+         
+    border:3px solid rgba(255, 255, 255, 0.4);
+    gap: 50px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 50px 0.5px rgba(0, 0, 0, 0.2); 
+    z-index: 10001;
+    color:white;
+}
+
+#payelement{
+  position: relative;
+ top: 0px;
+  width: 900px;
+  height:250px;
+     /* vertical alignment (top) */
+  background-color: rgba(73, 73, 73, 0.3);
+
+  backdrop-filter:blur(20px);
+  border-radius:20px;
+}
+
+#payelement p,
+#payelement strong{
+  position: relative;
+  padding-left:10px;
+  display: flex;
+   flex-direction:row;
+  justify-content: flex-start;  /* horizontal alignment (left) */
+  align-items: flex-start; 
+  font-family: 'Montserrat', sans-serif;
+
+
+    font-weight: 700;
+  font-size: 25px;
+}
+
+
+#payelement2{
+  position: relative;
+ top: 0px;
+  width: 500px;
+  height:100px;
+     /* vertical alignment (top) */
+  background-color: rgba(73, 73, 73, 0.3);
+
+  backdrop-filter:blur(20px);
+  border-radius:20px;
+}
+
+#payelement2 p,
+#payelement2 strong{
+  position: relative;
+  padding-left:10px;
+   padding-TOP:20px;
+  display: flex;
+   flex-direction:row;
+  justify-content: flex-start;  /* horizontal alignment (left) */
+  align-items: flex-start; 
+  font-family: 'Montserrat', sans-serif;
+
+   padding:40px;
+    font-weight: 700;
+  font-size: 25px;
+}
+
+#payelement2 #cash{
+  position: relative;
+  top:40px;
+  left:-570px;
+    width: 100px;
+  height:40px;
+font-family: 'Montserrat', sans-serif;
+    background-color:rgba(0, 172, 134, 0.2);
+  border-radius:10px;
+  border:2px solid rgba(255, 255, 255, 0.5);
+
+}
+
+#payelement2 #paynow{
+ position: relative;
+  top: 15px;
+  left:-750px;
+  width: 150px;
+  height:40px;
+font-family: 'Montserrat', sans-serif;
+    background-color:rgba(0, 247, 53, 0.2);
+  border-radius:10px;
+  border:2px solid rgba(255, 255, 255, 0.5);
+  
+
+}
+
+
+#payelement2 button,
+#payelement2 submit{
+ position: relative;
+  top:120px;
+  left:-700px;
+   height:90px;
+font-family: 'Montserrat', sans-serif;
+  background-color:rgba(73, 73, 73, 0.3);
+  border-radius:10px;
+  border:2px solid rgba(255, 255, 255, 0.5);
+  color:white;
+
+}
+
+#payelement2 #amount{
+ display:none;
+}
 
    </style>
 
@@ -416,7 +638,7 @@ flex-wrap:wrap;
       <hr>
       <a class="moption" href="vehiclereg.html">ADD VEHICLE</a> <br>
       <HR>
-      <a class="moption" href="#">BOOKINGSTATUS</a> <br> 
+      <a class="moption" href="#" id="bs">BOOKINGSTATUS</a> <br> 
        <hr> 
     </div>
 
@@ -440,7 +662,7 @@ flex-wrap:wrap;
     <h1 id="h2">THE EASY</h1> <br>
     <h1 id="h3"> WAY</h1>
       <h1 id="h4"> WELCOME TO EASYRENT</h1>
-    <p>At Easy Rent, we make mobility seamless. Our platform offers a wide range of vehicles to suit every<br> need, 
+    <p id="welcome-p">At Easy Rent, we make mobility seamless. Our platform offers a wide range of vehicles to suit every<br> need, 
         backed by a streamlined booking process and reliable support.Whether for business or leisure, <BR> 
           enjoy the freedom to drive without complexity 
         <br>
@@ -494,23 +716,15 @@ if (!$veh_result) {
 ?>
 
 
-
-
-
-
 </div>
-
 
    </div>
 
- <div class="fullview">
-
-   
- </div>
+ 
  
 
  <!-- booking form -->
-<div id="overlay">
+<div class="overlay">
   <div id="booking">
     <form action="book_vehicle.php" method="post" enctype="multipart/form-data">
       
@@ -526,6 +740,140 @@ if (!$veh_result) {
 
 
 
+
+ <!-- booking status -->
+<div class="fullview">
+
+
+<?php
+
+$cus_id = intval($_SESSION['id']); 
+
+$req = "
+SELECT b.boo_status, b.date, v.veh_img, v.veh_loc, v.veh_name , v.veh_price,b.boo_id,v.veh_id,b.cus_id,b.ren_id
+FROM booking_tbl b
+JOIN vehicle_tbl v
+  ON v.veh_id = b.veh_id  -- assuming booking_tbl stores veh_id
+WHERE b.cus_id = $cus_id;
+";
+
+
+
+
+
+$status = mysqli_query($con, $req);
+
+if (!$status) {
+    echo "Query failed: " . mysqli_error($con);
+} else {
+    while ($st = mysqli_fetch_assoc($status)) {
+       
+      if($st['boo_status']=='booked' || $st['boo_status']=='pending' ) {
+        echo "<div class='statuselement'> <div class='individual'><img src='" . htmlspecialchars($st['veh_img']) . "' alt='Vehicle Image'> </div>";
+       echo "<div class='individual'><strong>Name:</strong> " . htmlspecialchars($st['veh_name']) . "</div> ";
+
+        echo "<div class='individual'> <strong>Booking status:</strong> " . htmlspecialchars($st['boo_status']) . "</div> ";
+
+        echo "<div class='individual'> <strong>Booking Date:</strong> ₹" . htmlspecialchars($st['date']) . "</div> ";
+        echo "<div class='individual'> <strong>Price:</strong> ₹" . htmlspecialchars($st['veh_price']) . " </div> ";
+     echo "</div>";
+        echo "<div class='individual' > <button class='cancel'> Cancel</button></div> ";
+       
+    // echo "<button class='book1' data-veh-id='" . htmlspecialchars($st['veh_id']) . "' data-ren-id='" . htmlspecialchars($st['ren_id']) . "'>BOOK</button>";
+
+
+      //    echo "<button class='book2'> VIEW </button>" ;
+
+if ($st['boo_status'] == 'booked') {
+    echo "<div class='individual'>
+            <button class='pay'
+                data-booking-id='" . htmlspecialchars($st['boo_id']) . "'
+                data-name='" . htmlspecialchars($st['veh_name']) . "'
+                data-price='" . htmlspecialchars($st['veh_price']) . "'
+                data-date='" . htmlspecialchars($st['date']) . "' 
+                data-cus='" . htmlspecialchars($st['cus_id']) . "' 
+                data-ren='" . htmlspecialchars($st['ren_id']) . "' >
+              PAY
+            </button>
+
+           
+          </div>";
+}
+
+/*
+   if ($st['boo_status'] == 'booked') {
+    echo "<div class='individual'>
+              <button class='pay'
+                  data-id='" . htmlspecialchars($st['boo_id']) . "'
+                  data-name='" . htmlspecialchars($st['veh_name']) . "'
+                  data-price='" . htmlspecialchars($st['veh_price']) . "'
+                  data-date='" . htmlspecialchars($st['date']) . "'
+                  data-status='" . htmlspecialchars($st['boo_status']) . "'
+              >
+                  Payment
+              </button>
+          </div>";
+} */
+      
+    }
+
+  }
+}
+?>
+   
+ </div>
+
+
+ <div class='overlay2'> 
+    <div class='payment'>
+      <strong style="position:fixed; top:30px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 50px; color:green;">Payment </strong>
+      <div id='payelement'>
+      
+<p><strong>Vehicle Name:</strong> <span id="payVehName"></span></p>
+  <p><strong>Vehicle ID:</strong> <span id="payVehId"></span></p>
+  <p><strong>Price:</strong> ₹<span id="payPrice"></span></p>
+  <p><strong>Date:</strong> <span id="payDate"></span></p>
+   </div>
+
+    <STRong>PLEASE CHOOSE A PAYMENT METHOD</STRong> 
+   <div id='payelement2'>
+ <form action="payment.php" method="post">
+  <input type="hidden" name="booking-id" id="bookingIdInput">
+  <input type="hidden" name="ren" id="renInput">
+  <input type="hidden" name="cus" id="cusInput">
+  <input type="hidden" name="method" id="methodInput"> <!-- hidden field -->
+
+  <input type="number" id="amount" name="amount" placeholder="Enter the amount" required>
+
+  <!-- Selection buttons -->
+  <button type="button" id="cash" onclick="setMethod('cash' )">Cash</button>
+  <button type="button" id="paynow" onclick="setMethod('paynow')">Paynow</button>
+
+  <!-- Final submit -->
+  <button type="submit" id="confirm">Confirm Payment</button>
+
+  </div>
+</form>
+
+  
+
+   </div>
+ 
+
+<!--
+  <form action="book_vehicle.php" method="post" enctype="multipart/form-data">
+      
+      <input type="hidden" name="veh_id">
+      <input type="hidden" name="ren_id">
+      <label for="date">Choose Date:</label>
+    <input type="date" id="date" name="date">
+      <input type="file" name="doc">
+      <input type="submit"  name="booking-submit" value="Book Now">
+    </form>
+-->
+</div>
+       </div> 
+
    
 <script>
  const opt = document.getElementById("option");
@@ -538,7 +886,17 @@ const browse = document.getElementById("browse");
 const booking = document.getElementById("booking");
 //const view =document.querySelector(".book2");
 const bookbtn =document.querySelectorAll(".book1");
-const overlay = document.getElementById("overlay");
+const overlay = document.querySelector(".overlay");
+const fullview = document.querySelector(".fullview");
+const bs =document.getElementById("bs");
+//const pay =document.querySelector(".pay");
+const payment = document.querySelector(".payment");
+const overlay2 = document.querySelector(".overlay2");
+
+const amount = document.getElementById("amount");
+const paynow = document.getElementById("paynow");
+const cash = document.getElementById("cash");
+const paysub = document.getElementById("paysub");
 
 /* to open and close the more option when mouse moves in and out */
 opt.addEventListener('mouseenter',function()
@@ -639,6 +997,104 @@ overlay.addEventListener("click", (e) => {
     overlay.style.display = "none";
   }
 });
+
+
+bs.addEventListener('click', function() {
+  fullview.style.display = (fullview.style.display === 'flex') ? 'none' : 'flex';
+});
+
+
+overlay2.addEventListener("click", (e) => {
+  if (e.target === overlay2) {
+    overlay2.style.display = "none";
+  }
+});
+
+/*
+pay.addEventListener('click',function()
+{
+  overlay2.style.display = 'flex';
+  payment.style.display='flex';
+ 
+});
+*/
+
+/*
+// Select ALL payment buttons on the page
+const payButtons = document.querySelectorAll(".pay");
+
+payButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Access all the data from the button's 'dataset'
+        const bookingId = this.dataset.id;
+        const vehicleName = this.dataset.name;
+        const vehiclePrice = this.dataset.price;
+        const bookingDate = this.dataset.date;
+        const bookingStatus = this.dataset.status;
+
+        // Now you can use this data to populate your payment popup
+        // For example, updating the elements we created in the previous step:
+        document.getElementById('payment-title').textContent = `Payment for ${vehicleName}`;
+        document.getElementById('payment-price').textContent = `Price: ₹${vehiclePrice} (Booked on: ${bookingDate})`;
+        
+        // You can also add the booking ID to a hidden form input
+        // document.getElementById('payment-booking-id-input').value = bookingId;
+
+        // Finally, show the payment popup
+        overlay2.style.display = 'flex';
+        payment.style.display = 'flex';
+    });
+});
+*/
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".pay").forEach(button => {
+    button.addEventListener("click", function () {
+      // Get data from button
+      const booId  = this.dataset.bookingId;
+      const renId  = this.dataset.ren;
+      const cusId  = this.dataset.cus;
+      const vehName = this.dataset.name;
+      const price   = this.dataset.price;
+      const date    = this.dataset.date;
+
+      // Fill the payment details
+      document.getElementById("payVehName").textContent = vehName;
+      document.getElementById("payVehId").textContent   = booId;
+      document.getElementById("payPrice").textContent   = price;
+      document.getElementById("payDate").textContent    = date;
+
+      // Fill hidden inputs for PHP
+      document.getElementById("bookingIdInput").value = booId;
+      document.getElementById("renInput").value       = renId;
+      document.getElementById("cusInput").value       = cusId;
+      document.getElementById("amount").value         = price; // default = vehicle price
+
+      // Show the payment popup
+      overlay2.style.display = "flex";
+      payment.style.display  = "flex";
+    });
+  });
+});
+
+
+function closePayment() {
+  overlay2.style.display = "none";
+          
+}
+
+
+cash.addEventListener('click',function()
+{
+  amount.style.display='none';
+ 
+});
+
+paynow.addEventListener('click',function()
+{
+  amount.style.display='block';
+ 
+});
+
 
 
 
