@@ -625,6 +625,43 @@ font-family: 'Montserrat', sans-serif;
  display:none;
 }
 
+.paymentdiv{
+  display:none;
+  position: fixed;
+  left: 350px;
+  top:150px;
+  flex-wrap:wrap ;
+  border: 4px  solid rgba(58, 143, 255, 0.4);
+  width: 1300px;
+  height:700px;
+  background-color:rgba(0, 0, 0, 0.4);
+  backdrop-filter:blur(30px);
+  z-index: 10000;
+  border-radius: 10px;
+}
+
+
+.paydivelement{
+  color: white;
+  display: none;
+}
+
+.viewcont{
+  display:none;
+  position: fixed;
+  left: 350px;
+  top:150px;
+  flex-wrap:wrap ;
+  border: 4px  solid rgba(58, 143, 255, 0.4);
+  width: 1300px;
+  height:700px;
+  background-color:rgba(0, 0, 0, 0.4);
+  backdrop-filter:blur(30px);
+  z-index: 10000;
+  border-radius: 10px;
+
+}
+
    </style>
 
 </head>
@@ -635,10 +672,10 @@ font-family: 'Montserrat', sans-serif;
     <div class="more">  <!more options!>  
 
       <a  class="moption" href="#">PROFILE</a> <br>
-      <hr>
-      <a class="moption" href="vehiclereg.html">ADD VEHICLE</a> <br>
       <HR>
-      <a class="moption" href="#" id="bs">BOOKINGSTATUS</a> <br> 
+      <a class="moption" href="#" id="bs">BOOKING STATUS</a> <br> 
+       <hr>
+      <a class="moption" href="#" id="ps">PAYMENT STATUS</a> <br> 
        <hr> 
     </div>
 
@@ -684,11 +721,16 @@ font-family: 'Montserrat', sans-serif;
 <?php
 
 $listveh = "
-SELECT * FROM vehicle_tbl
-WHERE veh_id NOT IN (
-    SELECT veh_id FROM booking_tbl WHERE boo_status IN ('accepted', 'booked')
+SELECT v.*, r.*
+FROM vehicle_tbl v
+JOIN renter_tbl r ON v.ren_id = r.ren_id
+WHERE v.veh_id NOT IN (
+    SELECT b.veh_id 
+    FROM booking_tbl b 
+    WHERE b.boo_status IN ('accepted', 'booked')
 )
 ";
+
 
 
 
@@ -707,11 +749,63 @@ if (!$veh_result) {
      echo "<button class='book1' data-veh-id='" . htmlspecialchars($veh['veh_id']) . "' data-ren-id='" . htmlspecialchars($veh['ren_id']) . "'>BOOK</button>";
 
 
-          echo "<button class='book2'> VIEW </button>" ;
+       //   echo "<button type='button' id='viewnow' onclick='setMethod('viewnow')'>VIEW</button>''" ;
+
+          //view vehicle details
+          
+
+            //payment individual data passing
+             echo "
+            <button class='viewel' id='book2'
+                data-veh_name='" . htmlspecialchars($veh['veh_name']) . "'
+                data-veh_model='" . htmlspecialchars($veh['veh_model']) . "'
+                data-veh_reg='" . htmlspecialchars($veh['veh_reg']) . "'
+                data-veh_contact='" . htmlspecialchars($veh['veh_contact']) . "' 
+                data-veh_des='" . htmlspecialchars($veh['veh_des']) . "' 
+                data-veh_price='" . htmlspecialchars($veh['veh_price']) . "'
+                data-cat_name='" . htmlspecialchars($veh['cat_name']) . "' 
+                data-ren_name='" . htmlspecialchars($veh['ren_name']) . "' 
+                data-veh_loc='" . htmlspecialchars($veh['veh_loc']) . "'  
+               data-veh_img='" . htmlspecialchars($veh['veh_img']) . "'
+                
+                >
+             VIEW
+            </button>
+
+           
+      ";
+
+    }
+             
+             //recieve view details and display
+           
+             echo "<div class='overlay2'> 
+             <div class='viewcont'>";
+
+while ($veh_view = mysqli_fetch_assoc($veh_result)) {
+    echo "<div class='view-item'>";
+    echo "<img src='" . htmlspecialchars($veh_view['veh_img']) . "' alt='Vehicle Image'><br>";
+    echo "<strong>Vehicle Name:</strong> " . htmlspecialchars($veh_view['veh_name']) . "<br>";
+    echo "<strong>Vehicle Model:</strong> " . htmlspecialchars($veh_view['veh_model']) . "<br>";
+    echo "<strong>Vehicle Registration:</strong> " . htmlspecialchars($veh_view['veh_reg']) . "<br>";
+    echo "<strong>Contact Number:</strong> " . htmlspecialchars($veh_view['veh_contact']) . "<br>";
+    echo "<strong>Vehicle Description:</strong> " . htmlspecialchars($veh_view['veh_des']) . "<br>";
+    echo "<strong>Price:</strong> ₹" . htmlspecialchars($veh_view['veh_price']) . "<br>";
+    echo "<strong>Vehicle Category:</strong> " . htmlspecialchars($veh_view['cat_name']) . "<br>";
+    echo "<strong>Owner Name:</strong> " . htmlspecialchars($veh_view['ren_name']) . "<br>";
+    echo "<strong>Vehicle Location:</strong> " . htmlspecialchars($veh_view['c']) . "<br>";
+    echo "<button class='view'>View</button>";
+    echo "</div>";
+}
+
+
+
+echo "</div></div>";
+
        
        // $sql4= "insert into booking_tbl where    "; 
          echo "</div>";
-    }
+    
 }
 ?>
 
@@ -753,7 +847,7 @@ $req = "
 SELECT b.boo_status, b.date, v.veh_img, v.veh_loc, v.veh_name , v.veh_price,b.boo_id,v.veh_id,b.cus_id,b.ren_id
 FROM booking_tbl b
 JOIN vehicle_tbl v
-  ON v.veh_id = b.veh_id  -- assuming booking_tbl stores veh_id
+  ON v.veh_id = b.veh_id  
 WHERE b.cus_id = $cus_id;
 ";
 
@@ -779,6 +873,11 @@ if (!$status) {
      echo "</div>";
         echo "<div class='individual' > <button class='cancel'> Cancel</button></div> ";
        
+       
+
+
+
+
     // echo "<button class='book1' data-veh-id='" . htmlspecialchars($st['veh_id']) . "' data-ren-id='" . htmlspecialchars($st['ren_id']) . "'>BOOK</button>";
 
 
@@ -874,6 +973,40 @@ if ($st['boo_status'] == 'booked') {
 </div>
        </div> 
 
+
+       <div class="paymentdiv">
+        <div class="paydivelement">
+         
+         
+         <?php
+        // Use a different variable name to avoid confusion (e.g., $sql_payment)
+        $sql_payment =   " SELECT p.*, r.ren_name
+                FROM payment_tbl p
+                JOIN renter_tbl r ON p.ren_id = r.ren_id
+                WHERE p.cus_id = $cus_id";
+
+
+        $payment_result = mysqli_query($con, $sql_payment);
+
+        if ($payment_result && mysqli_num_rows($payment_result) > 0) {
+            // Loop through each payment record
+            while ($payment_row = mysqli_fetch_assoc($payment_result)) {
+                // Display the data in a styled div
+                echo "<div class='payment-status-item'>"; // Add CSS for this class
+                echo "<strong>Payment ID:</strong> " . htmlspecialchars($payment_row['pay_id']) . "<br>";
+                echo "<strong>Amount:</strong> ₹" . htmlspecialchars($payment_row['amount']) . "<br>";
+                echo "<strong>Date:</strong> " . htmlspecialchars($payment_row['pay_date']) . "<br>";
+                echo "<strong>Status:</strong> " . htmlspecialchars($payment_row['status']). "<br>";
+                 echo "<strong>Owner Name:</strong> " . htmlspecialchars($payment_row['ren_name']). "<br>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p>No payment history found.</p>";
+        }
+    ?>
+
+</div> </div>
+
    
 <script>
  const opt = document.getElementById("option");
@@ -897,6 +1030,21 @@ const amount = document.getElementById("amount");
 const paynow = document.getElementById("paynow");
 const cash = document.getElementById("cash");
 const paysub = document.getElementById("paysub");
+
+const paymentdiv = document.querySelector(".paymentdiv");
+const ps = document.getElementById("ps");
+
+const paydivelement = document.querySelector(".paydivelement");
+
+const viewcont = document.querySelector(".viewcont");
+
+//to diplay payment status
+
+ps.addEventListener('click',function(){
+
+paymentdiv.style.display = (paymentdiv.style.display === 'flex') ? 'none' : 'flex';
+paydivelement.style.display = (paydivelement.style.display === 'flex') ? 'none' : 'flex';
+});
 
 /* to open and close the more option when mouse moves in and out */
 opt.addEventListener('mouseenter',function()
@@ -1076,7 +1224,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 function closePayment() {
   overlay2.style.display = "none";
           
@@ -1096,7 +1243,51 @@ paynow.addEventListener('click',function()
 });
 
 
+// pay now cancel payment
+function setMethod(method) {
+    // Sets the value of the hidden input field
+    document.getElementById("methodInput").value = method;
+    console.log("Payment method set to: " + method); // For debugging
+}
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Make sure 'overlay2' and 'viewcont' are defined somewhere in your script, for example:
+    const overlay2 = document.querySelector(".overlay2"); // Example selector
+    const viewcont = document.querySelector(".viewcont"); // Example selector
+
+    document.querySelectorAll(".viewel").forEach(button => {
+        button.addEventListener("click", function () {
+            // Get data from button using camelCase for dataset properties
+            const renName = this.dataset.renName;
+            const vehName = this.dataset.vehName;
+            const vehModel = this.dataset.vehModel;
+            const vehContact = this.dataset.vehContact;
+            const vehDes = this.dataset.vehDes;
+            const vehPrice = this.dataset.vehPrice;
+            const vehImg = this.dataset.vehImg;
+            const catName = this.dataset.catName;
+
+            // Fill the element details
+            document.getElementById("ren_name").textContent = renName;
+            document.getElementById("veh_name").textContent = vehName;
+            document.getElementById("veh_model").textContent = vehModel;
+            document.getElementById("veh_contact").textContent = vehContact;
+            document.getElementById("veh_des").textContent = vehDes;
+            document.getElementById("veh_price").textContent = vehPrice;
+            document.getElementById("cat_name").textContent = catName;
+
+            // Set the 'src' attribute for the image tag
+            document.getElementById("veh_img").src = vehImg;
+
+            // Show the popup/modal
+            if (overlay2 && viewcont) {
+                overlay2.style.display = "flex";
+                viewcont.style.display = "flex";
+            }
+        });
+    });
+});
 
 
 </script>

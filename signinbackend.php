@@ -71,9 +71,14 @@ if(mysqli_num_rows($wa1)==1)
   {
      $_SESSION['username'] = $result['cus_name'];
      $_SESSION['id'] =$result['cus_id'];
+     $cus_id=$result['cus_id'];
      
+   $login1="insert into customer_session_tbl (cus_id) values('$cus_id')";
+   mysqli_query($con,$login1);
+
      header("location: home.php");
       exit();
+
   } else{
     echo "wrong password";
     echo "Entered: " . $lopassword . "<br>";
@@ -97,6 +102,10 @@ if(mysqli_num_rows($wa2)==1)
   {
      $_SESSION['username'] = $result['ren_name'];
      $_SESSION['id'] =$result['ren_id'];
+     $ren_id = $result['ren_id'];
+
+        $login2="insert into renter_session_tbl (ren_id) values('$ren_id')";
+   mysqli_query($con,$login2);
 
      header("location: rhome.php");
       exit();
