@@ -48,7 +48,7 @@ session_start();
   position: fixed;
     height: 90px;;
     width: 100%;
-  z-index: 1000;
+   z-index: 50000;
     background-color: rgba(0, 0, 0, 0.81);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid aliceblue;
@@ -226,7 +226,7 @@ text-shadow:0px 0px 60px rgb(173, 255, 255) ;
    background-color:rgba(23, 28, 34,0.1);
    backdrop-filter: blur(5px);
   padding: 20px;
-   z-index: 10000;
+  z-index: 100;
   height: 400px;
   width: 200px;
 border: 1px solid rgb(57, 58, 58);
@@ -345,10 +345,10 @@ top:-100px;
   width: 100px;
 }
 
-.vehicleelement .viewbtn{
+.vehicleelement .book2{
  display: flex;
- position: relative;
-  left: -820px;
+  position: relative;
+  left: -830px;
   top: -20px;
   background-color: rgba(212, 212, 212, 1);
   backdrop-filter: blur(10px);
@@ -377,7 +377,7 @@ flex-wrap:wrap;
   height: 100%;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(30px);
- z-index: 901;
+  z-index: 9998;
 }
 
 
@@ -389,52 +389,21 @@ flex-wrap:wrap;
 
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 30px;
   display: flex;   /* hidden until BOOK is clicked */
   flex-wrap: wrap;
   padding: 40px;
   flex-direction: column;
   border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow:  0px 0px 0px  3px  rgba(211, 0, 0, 0.4);
- /* z-index: 30000000000; */
+  box-shadow: 2px 2px 4px grey;
+  z-index: 9999;
   background-color: rgba(0, 0, 0, 0.9); /* optional: dark background */
   border-radius: 10px; /* optional: smooth corners */
-  width:50vh ;
-  height: 60vh;
-}
-
-#booking #submit{
-  position: relative;
-  top:200px;
-  left: 100px;
-  background-color: green;
-  border: none;
-  border-radius: 8px;
-  width: 300px;
-  height: 50px;
-  font-size: 30px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: white;
-}
-
-#booking #title{
-  position: relative;
-  
-  left:70px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   color: red;
-   font-size: 40px;
-}
-
-#booking label {
- color: aqua;
-
 }
 
 .fullview{
 
 
-     display:flex;
+     display:none;
          align-items: flex-start;
   justify-content:center;
         position: fixed;
@@ -530,43 +499,9 @@ top: -140px;
   height: 100%;
   background: rgba(0,0,0,0.3);
   backdrop-filter: blur(60px);
- z-index: 900;
+  z-index: 10000;
 }
 
-
-.overlay3 {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(60px);
-  z-index: 900;
-}
-
-.paystaoverlay {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(60px);
-  z-index: 1050;
-}
-
-
-.bostaoverlay {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(60px);
-  z-index: 1050;
-}
 .payment{
     position: fixed;
     top: 150px;
@@ -584,7 +519,7 @@ top: -140px;
     gap: 50px;
     border-radius: 50px;
     box-shadow: 0px 0px 50px 0.5px rgba(0, 0, 0, 0.2); 
-    z-index: 999999;
+    z-index: 10001;
     color:white;
 }
 
@@ -691,7 +626,7 @@ font-family: 'Montserrat', sans-serif;
 }
 
 .paymentdiv{
-  display:flex;
+  display:none;
   position: fixed;
   left: 350px;
   top:150px;
@@ -701,14 +636,14 @@ font-family: 'Montserrat', sans-serif;
   height:700px;
   background-color:rgba(0, 0, 0, 0.4);
   backdrop-filter:blur(30px);
-  
+  z-index: 10000;
   border-radius: 10px;
 }
 
 
 .paydivelement{
   color: white;
-  display: flex;
+  display: none;
 }
 
 .viewcont{
@@ -717,73 +652,16 @@ font-family: 'Montserrat', sans-serif;
   left: 350px;
   top:150px;
   flex-wrap:wrap ;
-  border: 4px  solid rgba(53, 54, 54, 0.4);
+  border: 4px  solid rgba(58, 143, 255, 0.4);
   width: 1300px;
   height:700px;
   background-color:rgba(0, 0, 0, 0.4);
   backdrop-filter:blur(30px);
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(255, 253, 253, 1);
-
-} 
-
-@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
-
-.view-itemcontainer{
- display: flex;
- flex-direction: column;
- color: aliceblue;
- font-size: 20px;
- font-weight: 50PX  ;
- text-transform: uppercase;
-
-font-family: 'Dongle', sans-serif;
-
-background-color: rgba(58, 58, 58, 0.4);
-  width: 70vh;
-  height: 72vh;
-  position: relative;
-  left: 375px;
-  top:163px;
-  border-radius: 20px;
-  border: 2px solid rgba(29, 186, 248, 0.4);
-}
-
-.view-item{
-position: relative;
-   left: 50px;
-   top:10px;
-}
-
-.view-item strong{
-  
-  color: gray;
-}
-
-.view-item img{
-  position: absolute;
-  left:600px;
-  top:130px;
-  height: 30vh;
-  width: 50vh;
-  border: 5px solid rgba(58, 58, 58, 0.4);
-  border-radius: 20px;
+  z-index: 10000;
+  border-radius: 10px;
 
 }
 
-.view-item button{
-  background-color: brown;
-  border-radius: 7px;
-  width: 300px;
-  height: 40px;;
-  font-family: 'Dongle', sans-serif;
-  font-weight: 50px;
-  position: relative;
-  top: -20px;
-  right: 40px;
-    border: 2px solid rgba(0, 0, 0, 0.53);
-
-}
    </style>
 
 </head>
@@ -877,26 +755,56 @@ if (!$veh_result) {
           
 
             //payment individual data passing
-            
-echo "
-<button class='viewel viewbtn' 
-    data-veh-name='" . htmlspecialchars($veh['veh_name']) . "'
-    data-veh-model='" . htmlspecialchars($veh['veh_model']) . "'
-    data-veh-reg='" . htmlspecialchars($veh['veh_reg']) . "'
-    data-veh-contact='" . htmlspecialchars($veh['veh_contact']) . "' 
-    data-veh-des='" . htmlspecialchars($veh['veh_des']) . "' 
-    data-veh-price='" . htmlspecialchars($veh['veh_price']) . "'
-    data-cat-name='" . htmlspecialchars($veh['cat_name']) . "' 
-    data-ren-name='" . htmlspecialchars($veh['ren_name']) . "' 
-    data-veh-loc='" . htmlspecialchars($veh['veh_loc']) . "'  
-    data-veh-img='" . htmlspecialchars($veh['veh_img']) . "'>
-VIEW
-</button> </div> 
-";
+             echo "
+            <button class='viewel' id='book2'
+                data-veh_name='" . htmlspecialchars($veh['veh_name']) . "'
+                data-veh_model='" . htmlspecialchars($veh['veh_model']) . "'
+                data-veh_reg='" . htmlspecialchars($veh['veh_reg']) . "'
+                data-veh_contact='" . htmlspecialchars($veh['veh_contact']) . "' 
+                data-veh_des='" . htmlspecialchars($veh['veh_des']) . "' 
+                data-veh_price='" . htmlspecialchars($veh['veh_price']) . "'
+                data-cat_name='" . htmlspecialchars($veh['cat_name']) . "' 
+                data-ren_name='" . htmlspecialchars($veh['ren_name']) . "' 
+                data-veh_loc='" . htmlspecialchars($veh['veh_loc']) . "'  
+               data-veh_img='" . htmlspecialchars($veh['veh_img']) . "'
+                
+                >
+             VIEW
+            </button>
+
+           
+      ";
 
     }
              
+             //recieve view details and display
+           
+             echo "<div class='overlay2'> 
+             <div class='viewcont'>";
 
+while ($veh_view = mysqli_fetch_assoc($veh_result)) {
+    echo "<div class='view-item'>";
+    echo "<img src='" . htmlspecialchars($veh_view['veh_img']) . "' alt='Vehicle Image'><br>";
+    echo "<strong>Vehicle Name:</strong> " . htmlspecialchars($veh_view['veh_name']) . "<br>";
+    echo "<strong>Vehicle Model:</strong> " . htmlspecialchars($veh_view['veh_model']) . "<br>";
+    echo "<strong>Vehicle Registration:</strong> " . htmlspecialchars($veh_view['veh_reg']) . "<br>";
+    echo "<strong>Contact Number:</strong> " . htmlspecialchars($veh_view['veh_contact']) . "<br>";
+    echo "<strong>Vehicle Description:</strong> " . htmlspecialchars($veh_view['veh_des']) . "<br>";
+    echo "<strong>Price:</strong> ₹" . htmlspecialchars($veh_view['veh_price']) . "<br>";
+    echo "<strong>Vehicle Category:</strong> " . htmlspecialchars($veh_view['cat_name']) . "<br>";
+    echo "<strong>Owner Name:</strong> " . htmlspecialchars($veh_view['ren_name']) . "<br>";
+    echo "<strong>Vehicle Location:</strong> " . htmlspecialchars($veh_view['c']) . "<br>";
+    echo "<button class='view'>View</button>";
+    echo "</div>";
+}
+
+
+
+echo "</div></div>";
+
+       
+       // $sql4= "insert into booking_tbl where    "; 
+         echo "</div>";
     
 }
 ?>
@@ -907,47 +815,19 @@ VIEW
    </div>
 
  
- <?php
-             //recieve view details and display
-           
-      echo "<div class='overlay2'> <div class='view-itemcontainer'>
-    <div class='viewcont'>
-        <div class='view-item'>
-            <img id='veh_img' src='' alt='Vehicle Image'>
-            <p><strong>Vehicle Name:</strong> <span id='veh_name'></span></p>
-            <p><strong>Vehicle Model:</strong> <span id='veh_model'></span></p> <br>
-            <p><strong>Vehicle Registration:</strong> <span id='veh_reg'></span></p>
-            <p><strong>Contact Number:</strong> <span id='veh_contact'></span></p> <br>
-            <p><strong>Vehicle Description:</strong> <span id='veh_des'></span></p>
-            <p><strong>Price:</strong> ₹<span id='veh_price'></span></p> <br>
-            <p><strong>Vehicle Category:</strong> <span id='cat_name'></span></p>
-            <p><strong>Owner Name:</strong> <span id='ren_name'></span></p>
-            <p><strong>Vehicle Location:</strong> <span id='veh_loc'></span></p>
-            <button class='book1' data-veh-id='" . htmlspecialchars($veh['veh_id']) . "' data-ren-id='" . htmlspecialchars($veh['ren_id']) . "'>BOOK NOW</button>
-           
-        </div>
-    </div>
-</div>  </div>
-";
-
-?>
+ 
 
  <!-- booking form -->
 <div class="overlay">
   <div id="booking">
     <form action="book_vehicle.php" method="post" enctype="multipart/form-data">
       
-      <label id="title" >BOOKING VEHICLE....</label> <BR> <br> <BR> <br>
-
       <input type="hidden" name="veh_id">
       <input type="hidden" name="ren_id">
-       <label for="file">Upload Licence:</label> <br>
-    <input type="file" name="doc"><br> <br>   
-
       <label for="date">Choose Date:</label>
     <input type="date" id="date" name="date">
-    
-      <input type="submit" id="submit" name="booking-submit" value="Book Now">
+      <input type="file" name="doc">
+      <input type="submit"  name="booking-submit" value="Book Now">
     </form>
   </div>
 </div>
@@ -956,7 +836,6 @@ VIEW
 
 
  <!-- booking status -->
-  <div class="bostaoverlay">
 <div class="fullview">
 
 
@@ -1042,9 +921,9 @@ if ($st['boo_status'] == 'booked') {
 ?>
    
  </div>
-</div>
 
- <div class='overlay3'> 
+
+ <div class='overlay2'> 
     <div class='payment'>
       <strong style="position:fixed; top:30px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 50px; color:green;">Payment </strong>
       <div id='payelement'>
@@ -1094,7 +973,7 @@ if ($st['boo_status'] == 'booked') {
 </div>
        </div> 
 
-    <div class="paystaoverlay">
+
        <div class="paymentdiv">
         <div class="paydivelement">
          
@@ -1126,7 +1005,7 @@ if ($st['boo_status'] == 'booked') {
         }
     ?>
 
-</div> </div> </div>
+</div> </div>
 
    
 <script>
@@ -1146,10 +1025,6 @@ const bs =document.getElementById("bs");
 //const pay =document.querySelector(".pay");
 const payment = document.querySelector(".payment");
 const overlay2 = document.querySelector(".overlay2");
-const overlay3 = document.querySelector(".overlay3");
-const paystaoverlay = document.querySelector(".paystaoverlay");
-const bostaoverlay = document.querySelector(".bostaoverlay");
-
 
 const amount = document.getElementById("amount");
 const paynow = document.getElementById("paynow");
@@ -1167,8 +1042,8 @@ const viewcont = document.querySelector(".viewcont");
 
 ps.addEventListener('click',function(){
 
- paystaoverlay.style.display = 'flex' ;
-
+paymentdiv.style.display = (paymentdiv.style.display === 'flex') ? 'none' : 'flex';
+paydivelement.style.display = (paydivelement.style.display === 'flex') ? 'none' : 'flex';
 });
 
 /* to open and close the more option when mouse moves in and out */
@@ -1273,31 +1148,13 @@ overlay.addEventListener("click", (e) => {
 
 
 bs.addEventListener('click', function() {
-  bostaoverlay.style.display = 'flex';
+  fullview.style.display = (fullview.style.display === 'flex') ? 'none' : 'flex';
 });
 
 
 overlay2.addEventListener("click", (e) => {
   if (e.target === overlay2) {
     overlay2.style.display = "none";
-  }
-});
-
-overlay3.addEventListener("click", (e) => {
-  if (e.target === overlay3) {
-    overlay3.style.display = "none";
-  }
-});
-
-paystaoverlay.addEventListener("click", (e) => {
-  if (e.target === paystaoverlay) {
-    paystaoverlay.style.display = "none";
-  }
-});
-
-bostaoverlay.addEventListener("click", (e) => {
-  if (e.target === bostaoverlay) {
-   bostaoverlay.style.display = "none";
   }
 });
 
@@ -1394,35 +1251,40 @@ function setMethod(method) {
 }
 
 
-
-// View vehicle details functionality
 document.addEventListener("DOMContentLoaded", function () {
+    // Make sure 'overlay2' and 'viewcont' are defined somewhere in your script, for example:
+    const overlay2 = document.querySelector(".overlay2"); // Example selector
+    const viewcont = document.querySelector(".viewcont"); // Example selector
+
     document.querySelectorAll(".viewel").forEach(button => {
         button.addEventListener("click", function () {
+            // Get data from button using camelCase for dataset properties
+            const renName = this.dataset.renName;
             const vehName = this.dataset.vehName;
             const vehModel = this.dataset.vehModel;
-            const vehReg = this.dataset.vehReg;
             const vehContact = this.dataset.vehContact;
             const vehDes = this.dataset.vehDes;
             const vehPrice = this.dataset.vehPrice;
-            const catName = this.dataset.catName;
-            const renName = this.dataset.renName;
-            const vehLoc = this.dataset.vehLoc;
             const vehImg = this.dataset.vehImg;
+            const catName = this.dataset.catName;
 
+            // Fill the element details
+            document.getElementById("ren_name").textContent = renName;
             document.getElementById("veh_name").textContent = vehName;
             document.getElementById("veh_model").textContent = vehModel;
-            document.getElementById("veh_reg").textContent = vehReg;
             document.getElementById("veh_contact").textContent = vehContact;
             document.getElementById("veh_des").textContent = vehDes;
             document.getElementById("veh_price").textContent = vehPrice;
             document.getElementById("cat_name").textContent = catName;
-            document.getElementById("ren_name").textContent = renName;
-            document.getElementById("veh_loc").textContent = vehLoc;
+
+            // Set the 'src' attribute for the image tag
             document.getElementById("veh_img").src = vehImg;
 
-            overlay2.style.display = "flex";
-            viewcont.style.display = "flex";
+            // Show the popup/modal
+            if (overlay2 && viewcont) {
+                overlay2.style.display = "flex";
+                viewcont.style.display = "flex";
+            }
         });
     });
 });
